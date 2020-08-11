@@ -20,3 +20,10 @@ create table usuario (
   
 GRANT ALL PRIVILEGES ON livro.* TO 'livro'@'%' IDENTIFIED BY 'Admsys!23';  
 
+-------------------
+
+$ docker image build -t myapp .
+
+$ docker container run -it -p 80:80 myapp bash
+
+root@6caa300343a3:/var/www/html# service apache2 start

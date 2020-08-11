@@ -1,19 +1,19 @@
 <h1>Lista de Usuarios</h1>
 <?php
   $id = $_GET['id'];
-
-  $conexao = mysql_connect("localhost", "livro", "Admsys!23") or die('erro');
+#  $id = '1';
+  $conexao = mysqli_connect("172.17.0.3", "livro", "Admsys!23","livro") or die('erro');
   
-  mysql_select_db("livro", $conexao) or die('erro 2');
+  mysqli_select_db($conexao, "livro") or die('erro 2');
   
   $query = "select id,nome,email,data_cadastro from usuario where id = $id";
-  $resultado = mysql_query($query, $conexao);
+  $resultado = mysqli_query($conexao, $query);
   
-  $linha = mysql_fetch_array($resultado);
+  $linha = mysqli_fetch_array($resultado);
   $nome = $linha['nome'];
   $email = $linha['email'];
   
-  mysql_close($conexao);
+  mysqli_close($conexao);
 ?>
 <html>
   <head>

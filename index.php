@@ -9,13 +9,13 @@
 </tr>
 
 <?php
-  $conexao = mysql_connect("localhost", "livro", "Admsys!23") or die('erro');
+  $conexao = mysqli_connect("172.17.0.3", "livro", "Admsys!23","livro") or die('erro');
   
-  mysql_select_db("livro", $conexao) or die('erro 2');
+  mysqli_select_db($conexao, "livro") or die('erro 2');
   
   $query = "select id,nome,email,data_cadastro from usuario order by id";
-  $resultado = mysql_query($query, $conexao);
-  while ($linha = mysql_fetch_array($resultado)) {
+  $resultado = mysqli_query($conexao, $query);
+  while ($linha = mysqli_fetch_array($resultado)) {
   
 ?>
 
@@ -30,7 +30,7 @@
 <?php
 }
 
-mysql_close($conexao);
+mysqli_close($conexao);
 ?>
 </table>
 <p>

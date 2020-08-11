@@ -1,15 +1,15 @@
 <?php
   $id = $_POST['id'];
 
-  $conexao = mysql_connect("localhost", "livro", "Admsys!23") or die('erro');
+  $conexao = mysqli_connect("172.17.0.3", "livro", "Admsys!23","livro") or die('erro');
   
-  mysql_select_db("livro", $conexao) or die('erro 2');
+  mysqli_select_db($conexao, "livro") or die('erro 2');
   
   $query = "delete usuario where id = $id";
   
-  $resultado = mysql_query($query, $conexao);
+  $resultado = mysqli_query($conexao, $query);
   
-  mysql_close($conexao);
+  mysqli_close($conexao);
   
   header('Location: index.php');
 ?>

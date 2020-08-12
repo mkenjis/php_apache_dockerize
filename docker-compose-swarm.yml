@@ -12,6 +12,9 @@ services:
       replicas: 2
     depends_on:
       - db
+    healthcheck:
+      interval: 30s
+      retries: 3
   db:
     image: mysql:5.6
     environment:

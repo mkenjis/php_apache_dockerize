@@ -11,4 +11,4 @@ COPY . .
 
 EXPOSE 80
 
-#CMD ["httpd-foreground"]
+CMD ["apachectl","-D","FOREGROUND"]

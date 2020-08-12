@@ -1,7 +1,8 @@
 <?php
-  $id = $_POST['id'];
+#  $id = $_POST['id'];
+  $id = $_GET['id'];
 
-  $conexao = mysqli_connect("172.17.0.3", "livro", "Admsys!23","livro") or die('erro');
+  $conexao = mysqli_connect("db", "livro", "Admsys!23","livro") or die('erro');
   
   mysqli_select_db($conexao, "livro") or die('erro 2');
   

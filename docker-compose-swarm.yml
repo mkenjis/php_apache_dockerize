@@ -1,15 +1,22 @@
 version: '3.1'
 
+# NOTE: in order to work on other swarm nodes, needs to push images to repository
+# docker image tag my_phpapp mkenjis/my_phpapp
+# docker login
+# docker push mkenjis/my_phpapp
+# docker image rm -f mkenjis/my_phpapp
+
 services:
   pyapp:
-    image: myapp:latest
-    build: .
+    image: mkenjis/my_phpapp
     ports:
       - '8000:80'
     networks:
-      - net1
+      - net2
     deploy:
-      replicas: 2
+      replicas: 3
+      restart_policy:
+        condition: on-failure
     depends_on:
       - db
     healthcheck:
@@ -22,8 +29,18 @@ services:
     volumes:
       - /root/data-dir:/var/lib/mysql
     networks:
-      - net1
+      - net2
+  visualizer:
+    image: dockersamples/visualizer
+    ports:
+      - "8080:8080"
+    stop_grace_period: 1m30s
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      placement:
+        constraints: [node.role == manager]
 
 networks:
-  net1:
+  net2:
     driver: overlay

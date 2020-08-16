@@ -1,0 +1,33 @@
+version: '2'
+
+services:
+  proxy:
+    image: custom-nginx
+    build:
+      context: .
+      dockerfile: Dockerfile-nginx
+    ports:
+      - '443:443'
+    networks:
+      - net1
+  phpapp:
+    image: my_phpapp
+    build: .
+#    ports:
+#      - '8000:80'
+    networks:
+      - net1
+    depends_on:
+      - db
+  db:
+    image: mysql:5.6
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+    volumes:
+      - /root/data-dir:/var/lib/mysql
+    networks:
+      - net1
+
+networks:
+  net1:
+    driver: bridge

@@ -1,0 +1,58 @@
+version: '3.1'
+
+# docker image tag custom-nginx mkenjis/custom-nginx
+# docker image tag my_phpapp     mkenjis/my_phpapp
+# docker login
+# docker push mkenjis/custom-nginx
+# docker push mkenjis/my_phpapp
+# docker image rm -f mkenjis/custom-nginx
+# docker image rm -f mkenjis/my_phpapp
+
+services:
+  proxy:
+    image: mkenjis/custom-nginx
+    ports:
+      - '443:443'
+    deploy:
+      replicas: 3
+      restart_policy:
+        condition: on-failure
+    networks:
+      - net2
+  phpapp:
+    image: mkenjis/my_phpapp
+#    ports:
+#      - '8000:80'
+    networks:
+      - net2
+    deploy:
+      replicas: 3
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - db
+    healthcheck:
+      interval: 30s
+      retries: 3
+  db:
+    image: mysql:5.6
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+    volumes:
+      - /root/data-dir:/var/lib/mysql
+    networks:
+      - net2
+  visualizer:
+    image: dockersamples/visualizer
+    ports:
+      - "8080:8080"
+    stop_grace_period: 1m30s
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+
+networks:
+  net2:
+    driver: overlay

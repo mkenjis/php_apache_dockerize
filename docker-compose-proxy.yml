@@ -1,11 +1,20 @@
 version: '2'
 
 services:
-  pyapp:
+  proxy:
+    image: custom-nginx
+    build:
+      context: .
+      dockerfile: Dockerfile-nginx
+    ports:
+      - '443:443'
+    networks:
+      - net1
+  phpapp:
     image: my_phpapp
     build: .
-    ports:
-      - '8000:80'
+#    ports:
+#      - '8000:80'
     networks:
       - net1
     depends_on:

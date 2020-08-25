@@ -1,16 +1,28 @@
 version: '3.1'
 
-# NOTE: in order to work on other swarm nodes, needs to push images to repository
-# docker image tag my_phpapp mkenjis/my_phpapp
+# docker image tag custom-nginx mkenjis/custom-nginx
+# docker image tag my_phpapp     mkenjis/my_phpapp
 # docker login
+# docker push mkenjis/custom-nginx
 # docker push mkenjis/my_phpapp
+# docker image rm -f mkenjis/custom-nginx
 # docker image rm -f mkenjis/my_phpapp
 
 services:
-  pyapp:
-    image: mkenjis/my_phpapp
+  proxy:
+    image: mkenjis/custom-nginx
     ports:
-      - '8000:80'
+      - '443:443'
+    deploy:
+      replicas: 3
+      restart_policy:
+        condition: on-failure
+    networks:
+      - net2
+  phpapp:
+    image: mkenjis/my_phpapp
+#    ports:
+#      - '8000:80'
     networks:
       - net2
     deploy:

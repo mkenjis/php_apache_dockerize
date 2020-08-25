@@ -1,4 +1,14 @@
+<html>
+<head>
+  <title>Lista de Usuarios</title>
+</head>
+<body>
+<?php include_once('template.html') ?>
+<main>
+<div>
 <h1>Lista de Usuarios</h1>
+</div>
+<div>
 <table border="1">
 <tr>
 	<td width="50px"><b>ID</b></td>
@@ -9,7 +19,7 @@
 </tr>
 
 <?php
-  $conexao = mysqli_connect("db", "livro", "Admsys!23","livro") or die('erro');
+  $conexao = mysqli_connect("localhost", "livro", "Admsys!23","livro") or die('erro');
   
   mysqli_select_db($conexao, "livro") or die('erro 2');
   
@@ -33,8 +43,10 @@
 mysqli_close($conexao);
 ?>
 </table>
+</div>
 <p>
 <a href="form_usuario.php">Novo</a>
 </p>
+</main>
 </body>
 </html>

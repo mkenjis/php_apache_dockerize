@@ -19,7 +19,7 @@
 </tr>
 
 <?php
-  $conexao = mysqli_connect("localhost", "livro", "Admsys!23","livro") or die('erro');
+  $conexao = mysqli_connect("db", "livro", "Admsys!23","livro") or die('erro');
   
   mysqli_select_db($conexao, "livro") or die('erro 2');
   

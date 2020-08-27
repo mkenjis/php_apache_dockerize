@@ -1,7 +1,7 @@
 <?php
-  $id = $_POST['id'];
+  $id = $_POST["id"];
 
-  $conexao = mysqli_connect("localhost", "livro", "Admsys!23","livro") or die('erro');
+  $conexao = mysqli_connect("db", "livro", "Admsys!23","livro") or die('erro');
   
   mysqli_select_db($conexao, "livro") or die('erro 2');
   
@@ -11,5 +11,5 @@
   
   mysqli_close($conexao);
   
-  header('Location: index.php');
+  header('Location: users.php');
 ?>

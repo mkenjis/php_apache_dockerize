@@ -1,5 +1,5 @@
 <?php
-  $id = $_POST["id"];
+  $id = $_GET["id"];
 
   $conexao = mysqli_connect("db", "livro", "Admsys!23","livro") or die('erro');
   
